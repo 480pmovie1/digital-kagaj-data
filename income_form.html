@@ -217,7 +217,12 @@
             const link = document.createElement('a');
             link.download = userName + "_declaration.jpg";
             link.href = resizedCanvas.toDataURL("image/jpeg", 0.92);
-            link.click();
+            link.click(); 
+            if (window.Flutter) {
+            window.Flutter.postMessage(base64Data); // यह डेटा ऐप को भेज देगा
+}
+
+
         });
     }
 
