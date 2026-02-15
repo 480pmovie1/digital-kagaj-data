@@ -15,6 +15,13 @@
       ]
     },
     {
+      "id": "tools",
+      "name": "डिजिटल टूल्स",
+      "forms": [
+        {"title": "Image Compressor (20KB)", "type": "tool"}
+      ]
+    },
+    {
       "id": "legal",
       "name": "कानूनी ड्राफ्ट",
       "forms": [
