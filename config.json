@@ -6,8 +6,11 @@
       "forms": [
         {
           "title": "स्वप्रमाणित घोषणा पत्र",
-          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/refs/heads/main/declaration.html",
-          "icon": "description"
+          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/main/declaration.html"
+        },
+        {
+          "title": "आय प्रमाण पत्र हेतु आवेदन",
+          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/main/income_form.html"
         }
       ]
     },
@@ -17,8 +20,7 @@
       "forms": [
         {
           "title": "किरायानामा (Rent Agreement)",
-          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/main/rent_agreement.html",
-          "icon": "gavel"
+          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/main/rent.html"
         }
       ]
     }
