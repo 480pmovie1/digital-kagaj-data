@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1000, initial-scale=0.35, maximum-scale=2.0, user-scalable=yes">
+    
     <meta name="viewport" content="width=1000"> <title>स्मार्ट हिंदी घोषणा पत्र - डेस्कटॉप मोड</title>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Dekko&family=Tillana:wght@400;700&family=Kurale&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -224,6 +225,11 @@
             link.click(); 
             if (window.Flutter) {
             window.Flutter.postMessage(base64Data); // यह डेटा ऐप को भेज देगा
+                // अपनी HTML फाइल के downloadJPG() फंक्शन के आखिर में यह जोड़ें:
+const base64Data = resizedCanvas.toDataURL("image/jpeg", 0.92);
+if (window.Flutter) {
+    window.Flutter.postMessage(base64Data); // यह डेटा ऐप को भेज देगा
+}
 }
 
 
@@ -242,4 +248,5 @@
 </script>
 </body>
 </html>
+
 
