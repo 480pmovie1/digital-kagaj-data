@@ -2,9 +2,8 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1000, initial-scale=0.35, maximum-scale=2.0, user-scalable=yes">
-    
-    <meta name="viewport" content="width=1000"> <title>स्मार्ट हिंदी घोषणा पत्र - डेस्कटॉप मोड</title>
+    <meta name="viewport" content="width=1000, initial-scale=0.35">
+    <title>स्मार्ट हिंदी घोषणा पत्र - डिजिटल कागज</title>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Dekko&family=Tillana:wght@400;700&family=Kurale&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -15,7 +14,6 @@
             --line-height-val: 2;
         }
 
-        /* बॉडी को हमेशा डेस्कटॉप विड्थ पर रखना */
         body {
             font-family: 'Noto Sans Devanagari', sans-serif;
             background-color: #444;
@@ -24,7 +22,7 @@
             align-items: center;
             padding: 20px;
             margin: 0;
-            min-width: 900px; /* मोबाइल पर सिकोड़ने से रोकता है */
+            min-width: 950px; 
         }
 
         .controls {
@@ -58,14 +56,6 @@
             vertical-align: middle;
         }
 
-        .auto-width-wrapper {
-            min-width: 50px;
-            display: inline-grid;
-            align-items: flex-end;
-        }
-        
-        .auto-width-wrapper input { grid-area: 1/1; width: 100%; }
-
         .input-field {
             font-family: 'Kurale', serif; 
             border: none;
@@ -96,11 +86,6 @@
         .footer { margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; }
         #auto-sig { font-size: 20px; color: #1a237e; letter-spacing: 1px; }
 
-        /* रिस्पॉन्सिव स्केलिंग हटा दी गई है ताकि यह हमेशा डेस्कटॉप मोड में रहे */
-
-        min-width: 950px; /* डेस्कटॉप चौड़ाई सुनिश्चित करें */
-            margin: 0 auto;
-        
         @media print { 
             .controls { display: none; } 
             body { background: none; min-width: auto; } 
@@ -123,7 +108,7 @@
         <option value="normal">Normal</option>
         <option value="italic">Italic</option>
     </select></div>
-    <button onclick="downloadJPG()" style="background:#28a745; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">Download HQ (658x487)</button>
+    <button onclick="downloadJPG()" style="background:#28a745; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">Download HQ (Image)</button>
 </div>
 
 <div id="capture-area" class="form-container">
@@ -143,8 +128,8 @@
         व्यवसाय: <div class="input-wrapper" style="width: 120px;"><input type="text" id="job" list="job-list" class="input-field"></div>
         जन्म स्थान <div class="input-wrapper" style="width: 150px;"><input type="text" id="birth-place" class="input-field"></div> 
         
-        जाति <div class="input-wrapper auto-width-wrapper"><input type="text" id="caste" list="caste-list" class="input-field" oninput="this.parentElement.style.width = (this.value.length + 1) + 'ch'"></div> 
-        उपजाति <div class="input-wrapper auto-width-wrapper"><input type="text" id="subcaste" class="input-field" oninput="this.parentElement.style.width = (this.value.length + 1) + 'ch'"></div> 
+        जाति <div class="input-wrapper" style="width: 120px;"><input type="text" id="caste" list="caste-list" class="input-field"></div> 
+        उपजाति <div class="input-wrapper" style="width: 120px;"><input type="text" id="subcaste" class="input-field"></div> 
         
         निवास <div class="input-wrapper" style="width: 300px;"><input type="text" id="address" class="input-field"></div> 
         थाना <div class="input-wrapper" style="width: 130px;"><input type="text" id="thana" class="input-field"></div> 
@@ -168,7 +153,7 @@
 
 <datalist id="reason-list"><option value="छात्रवृत्ति हेतु"><option value="शिक्षण संस्थान में प्रवेश हेतु"><option value="सरकारी भर्ती हेतु"></datalist>
 <datalist id="job-list"><option value="कृषि"><option value="मजदूरी"><option value="छात्र"></datalist>
-<datalist id="caste-list"><option value="पिछली जाति"><option value="सामान्य जाति"><option value="अनुसूचित जाति"></datalist>
+<datalist id="caste-list"><option value="पिछड़ी जाति"><option value="सामान्य जाति"><option value="अनुसूचित जाति"></datalist>
 
 <script>
     function updateStyle() {
@@ -181,8 +166,6 @@
         const sig = document.getElementById('auto-sig');
         sig.style.fontFamily = font;
         sig.style.fontStyle = style;
-        localStorage.setItem('selectedFont', font);
-        localStorage.setItem('selectedStyle', style);
     }
 
     function syncSignature() {
@@ -219,34 +202,26 @@
             ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(canvas, 0, 0, 658, 487);
 
+            const base64Data = resizedCanvas.toDataURL("image/jpeg", 0.92);
+            
+            // 1. ब्राउज़र डाउनलोड के लिए (टेस्टिंग)
             const link = document.createElement('a');
             link.download = userName + "_declaration.jpg";
-            link.href = resizedCanvas.toDataURL("image/jpeg", 0.92);
+            link.href = base64Data;
             link.click(); 
+
+            // 2. फ्लटर ऐप को भेजने के लिए
             if (window.Flutter) {
-            window.Flutter.postMessage(base64Data); // यह डेटा ऐप को भेज देगा
-                // अपनी HTML फाइल के downloadJPG() फंक्शन के आखिर में यह जोड़ें:
-const base64Data = resizedCanvas.toDataURL("image/jpeg", 0.92);
-if (window.Flutter) {
-    window.Flutter.postMessage(base64Data); // यह डेटा ऐप को भेज देगा
-}
-}
-
-
+                window.Flutter.postMessage(base64Data);
+            }
         });
     }
 
     window.onload = function() {
         const t = new Date();
         document.getElementById('current-date').value = t.toLocaleDateString('hi-IN');
-        const savedFont = localStorage.getItem('selectedFont') || "'Kurale', serif";
-        const savedStyle = localStorage.getItem('selectedStyle') || "normal";
-        document.getElementById('fontChanger').value = savedFont;
-        document.getElementById('styleChanger').value = savedStyle;
         updateStyle();
     };
 </script>
 </body>
 </html>
-
-
