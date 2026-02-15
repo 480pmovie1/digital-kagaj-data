@@ -1,0 +1,26 @@
+{
+  "categories": [
+    {
+      "id": "essential",
+      "name": "जरूरी फॉर्म",
+      "forms": [
+        {
+          "title": "स्वप्रमाणित घोषणा पत्र",
+          "html_url": "https://raw.githubusercontent.com/YOUR_USERNAME/digital-kagaj-data/main/declaration.html",
+          "icon": "description"
+        }
+      ]
+    },
+    {
+      "id": "legal",
+      "name": "कानूनी ड्राफ्ट",
+      "forms": [
+        {
+          "title": "किरायानामा (Rent Agreement)",
+          "html_url": "https://raw.githubusercontent.com/YOUR_USERNAME/digital-kagaj-data/main/rent_agreement.html",
+          "icon": "gavel"
+        }
+      ]
+    }
+  ]
+}
