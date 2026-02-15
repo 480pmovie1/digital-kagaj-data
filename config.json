@@ -6,7 +6,7 @@
       "forms": [
         {
           "title": "स्वप्रमाणित घोषणा पत्र",
-          "html_url": "https://raw.githubusercontent.com/YOUR_USERNAME/digital-kagaj-data/main/declaration.html",
+          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/main/declaration.html",
           "icon": "description"
         }
       ]
@@ -17,7 +17,7 @@
       "forms": [
         {
           "title": "किरायानामा (Rent Agreement)",
-          "html_url": "https://raw.githubusercontent.com/YOUR_USERNAME/digital-kagaj-data/main/rent_agreement.html",
+          "html_url": "https://raw.githubusercontent.com/480pmovie1/digital-kagaj-data/main/rent_agreement.html",
           "icon": "gavel"
         }
       ]
