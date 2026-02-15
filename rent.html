@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1000"> <title>स्मार्ट हिंदी घोषणा पत्र - डेस्कटॉप मोड</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Dekko&family=Tillana:wght@400;700&family=Kurale&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --input-font-size: 19.5px;
+            --content-font-size: 19px;
+            --line-height-val: 2;
+        }
+
+        /* बॉडी को हमेशा डेस्कटॉप विड्थ पर रखना */
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            background-color: #444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            min-width: 900px; /* मोबाइल पर सिकोड़ने से रोकता है */
+        }
+
+        .controls {
+            background: #fff; padding: 15px; border-radius: 8px;
+            margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex; gap: 15px; align-items: center;
+            width: 850px; justify-content: center;
+        }
+
+        .form-container {
+            background-color: #fff; 
+            width: 850px; 
+            min-height: 550px;
+            padding: 50px 70px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            line-height: var(--line-height-val); 
+            color: #111;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .input-wrapper {
+            display: inline-flex;
+            position: relative;
+            border-bottom: 3px dotted #000;
+            line-height: 1;
+            margin: 0 2px;
+            height: 30px; 
+            align-items: flex-end; 
+            justify-content: center;
+            vertical-align: middle;
+        }
+
+        .auto-width-wrapper {
+            min-width: 50px;
+            display: inline-grid;
+            align-items: flex-end;
+        }
+        
+        .auto-width-wrapper input { grid-area: 1/1; width: 100%; }
+
+        .input-field {
+            font-family: 'Kurale', serif; 
+            border: none;
+            background: transparent;
+            font-size: var(--input-font-size);
+            color: #1a237e;
+            outline: none;
+            text-align: center;
+            padding: 0 5px;
+            letter-spacing: 0.8px;
+            word-spacing: 4px;
+        }
+
+        .temp-text {
+            font-size: var(--input-font-size);
+            color: #1a237e;
+            text-align: center;
+            padding-bottom: 1px;
+            white-space: nowrap;
+            letter-spacing: 1px;
+            word-spacing: 5px;
+        }
+
+        h2 { text-align: center; text-decoration: underline; margin-bottom: 5px; font-size: 26px; line-height: 1.2; }
+        h3 { text-align: center; margin-bottom: 15px; font-size: 19px; line-height: 1.2; }
+        .content { text-align: justify; font-size: var(--content-font-size); }
+
+        .footer { margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; }
+        #auto-sig { font-size: 20px; color: #1a237e; letter-spacing: 1px; }
+
+        /* रिस्पॉन्सिव स्केलिंग हटा दी गई है ताकि यह हमेशा डेस्कटॉप मोड में रहे */
+        
+        @media print { 
+            .controls { display: none; } 
+            body { background: none; min-width: auto; } 
+            .form-container { box-shadow: none; padding: 20px; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="controls">
+    <div><strong>Font:</strong>
+    <select id="fontChanger" onchange="updateStyle()">
+        <option value="'Kalam', cursive">लिखावट 1</option>
+        <option value="'Dekko', cursive">लिखावट 2</option>
+        <option value="'Tillana', cursive">लिखावट 3</option>
+        <option value="'Kurale', serif" selected>लिखावट 4</option>
+    </select></div>
+    <div><strong>Style:</strong>
+    <select id="styleChanger" onchange="updateStyle()">
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+    </select></div>
+    <button onclick="downloadJPG()" style="background:#28a745; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">Download HQ (658x487)</button>
+</div>
+
+<div id="capture-area" class="form-container">
+    <div style="display: flex; justify-content: space-between; line-height: 1.2; margin-bottom: 25px;">
+        <div>प्रमाण पत्र बनवाने का कारण: <div class="input-wrapper" style="width: 250px;"><input type="text" id="reason" list="reason-list" class="input-field" value="शिक्षण संस्थान में प्रवेश"></div></div>
+        <div>आधार न. <div class="input-wrapper" style="width: 200px;"><input type="text" id="aadhar" class="input-field" maxlength="14" placeholder="XXXX-XXXX-XXXX"></div></div>
+    </div>
+
+    <h2><u>स्वप्रमाणित घोषणा पत्र</u></h2>
+    <h3>आय/जाति/निवास प्रमाण - पत्र हेतु</h3>
+
+    <div class="content">
+        मैं <div class="input-wrapper" style="width: 200px;"><input type="text" id="main-name" class="input-field" oninput="syncSignature()"></div> 
+        पुत्र/पुत्री पति श्री <div class="input-wrapper" style="width: 180px;"><input type="text" id="father" class="input-field"></div> 
+        माता श्रीमती <div class="input-wrapper" style="width: 180px;"><input type="text" id="mother" class="input-field"></div> 
+        जन्म तिथि <div class="input-wrapper" style="width: 130px;"><input type="text" id="dob" class="input-field"></div> 
+        व्यवसाय: <div class="input-wrapper" style="width: 120px;"><input type="text" id="job" list="job-list" class="input-field"></div>
+        जन्म स्थान <div class="input-wrapper" style="width: 150px;"><input type="text" id="birth-place" class="input-field"></div> 
+        
+        जाति <div class="input-wrapper auto-width-wrapper"><input type="text" id="caste" list="caste-list" class="input-field" oninput="this.parentElement.style.width = (this.value.length + 1) + 'ch'"></div> 
+        उपजाति <div class="input-wrapper auto-width-wrapper"><input type="text" id="subcaste" class="input-field" oninput="this.parentElement.style.width = (this.value.length + 1) + 'ch'"></div> 
+        
+        निवास <div class="input-wrapper" style="width: 300px;"><input type="text" id="address" class="input-field"></div> 
+        थाना <div class="input-wrapper" style="width: 130px;"><input type="text" id="thana" class="input-field"></div> 
+        तहसील <div class="input-wrapper" style="width: 130px;"><input type="text" id="tehsil" class="input-field"></div> 
+        जिला <div class="input-wrapper" style="width: 130px;"><input type="text" id="district" class="input-field"></div> 
+        घोषणा करता/करती हूँ कि आवेदन पत्र में दिए गये विवरण तथ्य एवं मेरी जानकारी विश्वास में शुद्ध एवं सत्य है, मैं मिथ्या/विवरण तथ्यों को देने के परिणामों से भलीभांति अवगत हूँ! यदि आवेदन पत्र में दिए गये कोई विवरण/थ्य मिथ्या पाए जाते हैं, तो मेरे विरुद्ध भा.द.वि. 1860 की धारा - 199 व 200 एवं प्रभावी किसी अन्य विधि के अंतर्गत अभियोजन एवं दण्ड के लिए स्वयं उत्तर दायी होऊंगा/होऊंगी।
+    </div>
+
+    <div class="footer">
+        <div>
+            स्थान <div class="input-wrapper" style="width: 140px;"><input type="text" id="loc-place" class="input-field"></div><br>
+            दिनांक <div class="input-wrapper" style="width: 140px;"><input type="text" id="current-date" class="input-field"></div>
+        </div>
+        <div style="text-align: right;">
+            आवेदक के हस्ताक्षर <div class="input-wrapper" style="width: 180px; border:none;"><span id="auto-sig"></span></div><br>
+            मोबाईल न. <div class="input-wrapper" style="width: 160px;"><input type="text" id="mobile" class="input-field"></div><br>
+            वार्षिक आय <div class="input-wrapper" style="width: 110px; border:none;"><input type="text" id="income" class="input-field" value="46,000"></div>
+        </div>
+    </div>
+</div>
+
+<datalist id="reason-list"><option value="छात्रवृत्ति हेतु"><option value="शिक्षण संस्थान में प्रवेश हेतु"><option value="सरकारी भर्ती हेतु"></datalist>
+<datalist id="job-list"><option value="कृषि"><option value="मजदूरी"><option value="छात्र"></datalist>
+<datalist id="caste-list"><option value="पिछली जाति"><option value="सामान्य जाति"><option value="अनुसूचित जाति"></datalist>
+
+<script>
+    function updateStyle() {
+        const font = document.getElementById('fontChanger').value;
+        const style = document.getElementById('styleChanger').value;
+        document.querySelectorAll('.input-field').forEach(f => {
+            f.style.fontFamily = font;
+            f.style.fontStyle = style;
+        });
+        const sig = document.getElementById('auto-sig');
+        sig.style.fontFamily = font;
+        sig.style.fontStyle = style;
+        localStorage.setItem('selectedFont', font);
+        localStorage.setItem('selectedStyle', style);
+    }
+
+    function syncSignature() {
+        document.getElementById('auto-sig').innerText = document.getElementById('main-name').value;
+    }
+
+    function downloadJPG() {
+        const userName = document.getElementById('main-name').value || "User";
+        const area = document.getElementById('capture-area');
+
+        html2canvas(area, { 
+            scale: 3, 
+            useCORS: true,
+            backgroundColor: "#ffffff",
+            onclone: (clonedDoc) => {
+                const inputs = clonedDoc.querySelectorAll('.input-field');
+                inputs.forEach(input => {
+                    const wrapper = input.parentElement;
+                    const textSpan = clonedDoc.createElement('span');
+                    textSpan.innerText = input.value;
+                    textSpan.className = 'temp-text';
+                    textSpan.style.fontFamily = input.style.fontFamily;
+                    textSpan.style.fontStyle = input.style.fontStyle;
+                    input.style.display = 'none';
+                    wrapper.appendChild(textSpan);
+                });
+            }
+        }).then(canvas => {
+            const resizedCanvas = document.createElement('canvas');
+            resizedCanvas.width = 658;
+            resizedCanvas.height = 487;
+            const ctx = resizedCanvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(canvas, 0, 0, 658, 487);
+
+            const link = document.createElement('a');
+            link.download = userName + "_declaration.jpg";
+            link.href = resizedCanvas.toDataURL("image/jpeg", 0.92);
+            link.click();
+        });
+    }
+
+    window.onload = function() {
+        const t = new Date();
+        document.getElementById('current-date').value = t.toLocaleDateString('hi-IN');
+        const savedFont = localStorage.getItem('selectedFont') || "'Kurale', serif";
+        const savedStyle = localStorage.getItem('selectedStyle') || "normal";
+        document.getElementById('fontChanger').value = savedFont;
+        document.getElementById('styleChanger').value = savedStyle;
+        updateStyle();
+    };
+</script>
+</body>
+</html>
