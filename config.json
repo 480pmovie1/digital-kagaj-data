@@ -18,7 +18,8 @@
       "id": "tools",
       "name": "डिजिटल टूल्स",
       "forms": [
-        {"title": "Image Compressor (20KB)", "type": "tool"}
+        {"title": "Image Compressor (20KB)", "type": "tool"},
+        {"title": "pdf Compressor (20KB)", "type": "tool"}
       ]
     },
     {
